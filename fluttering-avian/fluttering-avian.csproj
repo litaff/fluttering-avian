@@ -8,4 +8,16 @@
     <RootNamespace>fluttering_avian</RootNamespace>
   </PropertyGroup>
   
+  <ItemGroup>
+    <Reference Include="Logger">
+      <HintPath>..\lib\Logger.dll</HintPath>
+    </Reference>
+    <Reference Include="StateMachine">
+      <HintPath>..\lib\StateMachine.dll</HintPath>
+    </Reference>
+    <Reference Include="ViewManager">
+      <HintPath>..\lib\ViewManager.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
 </Project>
