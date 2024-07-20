@@ -35,15 +35,9 @@ public partial class CharacterController : RigidBody3D
 		base._PhysicsProcess(delta);
 	}
 
-	// TODO: Implement input handling outside of CharacterController.
-	public override void _Input(InputEvent @event)
+	public void RequestJump()
 	{
-		base._Input(@event);
-		
-		if(@event is InputEventKey { Keycode: Key.Space, Pressed: true, Echo: false })
-		{
-			jumpRequested = true;
-		}
+		jumpRequested = true;
 	}
 	
 	/// <summary>

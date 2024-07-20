@@ -7,6 +7,7 @@
 [sub_resource type="BoxMesh" id="BoxMesh_upnlf"]
 
 [node name="Player" type="RigidBody3D" node_paths=PackedStringArray("CeilingRayCast")]
+freeze = true
 script = ExtResource("1_unvi6")
 CeilingRayCast = NodePath("RayCast3D")
 JumpHeight = 1.0

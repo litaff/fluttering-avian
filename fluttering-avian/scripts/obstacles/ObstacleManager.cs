@@ -18,7 +18,7 @@ public partial class ObstacleManager : Node
     
     private ObstacleSpawner spawner;
     private List<Obstacle> activeObstacles;
-
+    
     public override void _Ready()
     {
         activeObstacles = new List<Obstacle>();
@@ -33,6 +33,16 @@ public partial class ObstacleManager : Node
         TranslateObstacles(delta);
     }
 
+    public void StartSpawning()
+    {
+        spawnTimer.Start();
+    }
+
+    public void StopSpawning()
+    {
+        spawnTimer.Stop();
+    }
+    
     private void SpawnObstacle()
     {
         // TODO: Implement logic to swap between different obstacles.
