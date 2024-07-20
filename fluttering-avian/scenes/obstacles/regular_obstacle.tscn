@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://cko3eqihsb2yn"]
+
+[ext_resource type="Script" path="res://scripts/obstacles/Obstacle.cs" id="1_pqeo1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_17rfx"]
+size = Vector3(1, 10, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h7jwu"]
+size = Vector3(1, 10, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4n7iv"]
+size = Vector3(1, 3, 1)
+
+[node name="RegularObstacle" type="Node3D" node_paths=PackedStringArray("solidZones", "gapZones")]
+script = ExtResource("1_pqeo1")
+maxSpawnHeight = 3
+minSpawnHeight = -3
+solidZones = [NodePath("Upper"), NodePath("Lower")]
+gapZones = [NodePath("Gap")]
+
+[node name="Upper" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Upper"]
+shape = SubResource("BoxShape3D_17rfx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Upper"]
+mesh = SubResource("BoxMesh_h7jwu")
+
+[node name="Lower" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lower"]
+shape = SubResource("BoxShape3D_17rfx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Lower"]
+mesh = SubResource("BoxMesh_h7jwu")
+
+[node name="Gap" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gap"]
+shape = SubResource("BoxShape3D_4n7iv")

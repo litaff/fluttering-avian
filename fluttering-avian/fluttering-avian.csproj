@@ -12,6 +12,9 @@
     <Reference Include="Logger">
       <HintPath>..\lib\Logger.dll</HintPath>
     </Reference>
+    <Reference Include="Pooling">
+      <HintPath>..\lib\Pooling.dll</HintPath>
+    </Reference>
     <Reference Include="StateMachine">
       <HintPath>..\lib\StateMachine.dll</HintPath>
     </Reference>
