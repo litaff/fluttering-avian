@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://da3j6xpce30me"]
+[gd_scene load_steps=4 format=3 uid="uid://da3j6xpce30me"]
 
 [ext_resource type="PackedScene" uid="uid://guj1j7f64clt" path="res://scenes/characters/player.tscn" id="1_ftlnu"]
 [ext_resource type="PackedScene" uid="uid://bgsaqq3iov5d2" path="res://scenes/test/test_environment.tscn" id="2_lah2u"]
+[ext_resource type="PackedScene" uid="uid://cedu5y2rhwf7u" path="res://scenes/obstacles/obstacle_manager.tscn" id="3_2silq"]
 
 [node name="Main" type="Node3D"]
 
@@ -13,3 +14,5 @@ size = 10.0
 [node name="Player" parent="." instance=ExtResource("1_ftlnu")]
 
 [node name="TestEnvironment" parent="." instance=ExtResource("2_lah2u")]
+
+[node name="ObstacleManager" parent="." instance=ExtResource("3_2silq")]
