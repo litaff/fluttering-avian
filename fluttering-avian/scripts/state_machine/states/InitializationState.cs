@@ -1,9 +1,16 @@
 namespace fluttering_avian.state_machine.states;
 
-using Godot;
+using input_manager;
 
-[GlobalClass]
-public partial class InitializationState : BaseCoreState
+public class InitializationState : BaseCoreState
 {
-    public override StateType StateType => StateType.Initialization;
+    public InitializationState(RuntimeData runtimeData, InputManager inputManager) : base(runtimeData, inputManager,
+        StateType.Initialization)
+    {
+    }
+
+    public override void OnEnter()
+    {
+        StateMachine.SwitchState(StateType.Idle);
+    }
 }

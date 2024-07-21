@@ -1,20 +1,19 @@
 namespace fluttering_avian.state_machine.states;
 
 using global::StateMachine;
-using Godot;
+using input_manager;
 
-public abstract partial class BaseCoreState : Resource, IState<StateType>
+public abstract class BaseCoreState : State<StateType>
 {
-    public IStateMachine<StateType> StateMachine { get; set; }
-    public abstract StateType StateType { get; }
+    protected InputManager InputManager;
+    protected RuntimeData RuntimeData;
     
-    public virtual void OnEnter()
+    public override StateType StateType { get; }
+    
+    public BaseCoreState(RuntimeData runtimeData, InputManager inputManager, StateType stateType)
     {
-        
-    }
-
-    public virtual void OnExit()
-    {
-        
+        RuntimeData = runtimeData;
+        InputManager = inputManager;
+        StateType = stateType;
     }
 }

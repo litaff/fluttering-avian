@@ -18,7 +18,11 @@ public partial class ObstacleManager : Node
     
     private ObstacleSpawner spawner;
     private List<Obstacle> activeObstacles;
-    
+
+    public event Action OnCharacterEnter;
+    public event Action OnCharacterExit;
+    public event Action OnCharacterCollision;
+
     public override void _Ready()
     {
         activeObstacles = new List<Obstacle>();
@@ -55,8 +59,39 @@ public partial class ObstacleManager : Node
         var initialPosition = new Vector3(0, obstacle.GetRandomSpawnHeight(), spawnOffset);
         obstacle.Position = initialPosition;
         activeObstacles.Add(obstacle);
-        obstacle.RegisterHandlers();
+        RegisterObstacleHandlers(obstacle);
         AddChild(obstacle);
+    }
+
+    private void RegisterObstacleHandlers(Obstacle obstacle)
+    {
+        obstacle.OnCharacterEnter += OnCharacterEnterHandler;
+        obstacle.OnCharacterExit += OnCharacterExitHandler;
+        obstacle.OnCharacterCollision += OnCharacterCollisionHandler;
+        obstacle.RegisterHandlers();
+    }
+    
+    private void UnregisterObstacleHandlers(Obstacle obstacle)
+    {
+        obstacle.OnCharacterEnter -= OnCharacterEnterHandler;
+        obstacle.OnCharacterExit -= OnCharacterExitHandler;
+        obstacle.OnCharacterCollision -= OnCharacterCollisionHandler;
+        obstacle.UnregisterHandlers();
+    }
+
+    private void OnCharacterEnterHandler()
+    {
+        OnCharacterEnter?.Invoke();
+    }
+
+    private void OnCharacterExitHandler()
+    {
+        OnCharacterExit?.Invoke();
+    }
+
+    private void OnCharacterCollisionHandler()
+    {
+        OnCharacterCollision?.Invoke();
     }
 
     private void TranslateObstacles(double delta)
@@ -77,7 +112,7 @@ public partial class ObstacleManager : Node
     private void FreeObstacle(Obstacle obstacle)
     {
         RemoveChild(obstacle);
-        obstacle.UnregisterHandlers();
+        UnregisterObstacleHandlers(obstacle);
         activeObstacles.Remove(obstacle);
         obstacle.Free();
     }

@@ -3,37 +3,22 @@ namespace fluttering_avian.input_manager;
 using System;
 using Godot;
 
-public class InputManager : Node
+public class InputManager
 {
-    public event Action<Key> OnKeyPressed;
-    public event Action<Key> OnKeyHeld;
-    public event Action<Key> OnKeyReleased;
+    private const string JUMP = "jump";
+
+    public event Action OnJumpPressed;
     
-    public override void _Input(InputEvent @event)
+    public void HandleInputEvent(InputEvent @event)
     {
-        base._Input(@event);
-		
-        if(@event is InputEventKey inputEventKey)
+        if(@event.IsAction(JUMP))
         {
-            HandleInputEventKey(inputEventKey);
+            HandleJumpInput(@event);
         }
     }
 
-    private void HandleInputEventKey(InputEventKey inputEventKey)
+    private void HandleJumpInput(InputEvent @event)
     {
-        if (inputEventKey.Echo)
-        {
-            OnKeyHeld?.Invoke(inputEventKey.Keycode);
-            return;
-        }
-
-        if (inputEventKey.Pressed)
-        {
-            OnKeyPressed?.Invoke(inputEventKey.Keycode);
-        }
-        else
-        {
-            OnKeyReleased?.Invoke(inputEventKey.Keycode);
-        }
+        if (@event.IsActionPressed(JUMP)) OnJumpPressed?.Invoke();
     }
 }

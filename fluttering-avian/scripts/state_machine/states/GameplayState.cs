@@ -1,59 +1,59 @@
 namespace fluttering_avian.state_machine.states;
 
-using System;
 using character_controller;
-using Godot;
 using input_manager;
 using obstacles;
 
-[GlobalClass]
-public partial class GameplayState : BaseCoreState
+public class GameplayState : BaseCoreState
 {
-    [Export]
-    private CharacterController character;
-    [Export]
-    private ObstacleManager obstacleManager;
-    [Export]
-    private Key inputKey;
+    private readonly CharacterController character;
+    private readonly ObstacleManager obstacleManager;
 
-    private InputManager inputManager;
-    
-    public override StateType StateType => StateType.Gameplay;
-
-    public void Initialize(InputManager inputManager)
+    public GameplayState(RuntimeData runtimeData, InputManager inputManager, CharacterController characterController,
+        ObstacleManager obstacleManager) : base(runtimeData, inputManager, StateType.Gameplay)
     {
-        this.inputManager = inputManager;
+        character = characterController;
+        this.obstacleManager = obstacleManager;
     }
-    
+
     public override void OnEnter()
     {
-        inputManager.OnKeyPressed += OnFirstInputHandler;
+        InputManager.OnJumpPressed += OnFirstInputHandler;
         base.OnEnter();
     }
 
     public override void OnExit()
     {
-        inputManager.OnKeyPressed -= OnFirstInputHandler;
-        inputManager.OnKeyPressed -= OnInputHandler;
+        InputManager.OnJumpPressed -= OnFirstInputHandler;
+        InputManager.OnJumpPressed -= OnInputHandler;
+        obstacleManager.StopSpawning();
         base.OnExit();
     }
 
-    private void OnFirstInputHandler(Key keycode)
+    private void OnFirstInputHandler()
     {
-        if (keycode != inputKey) return;
-        inputManager.OnKeyPressed -= OnFirstInputHandler;
+        InputManager.OnJumpPressed -= OnFirstInputHandler;
         
         character.Freeze = false;
+        obstacleManager.OnCharacterCollision += OnCharacterCollisionHandler;
+        obstacleManager.OnCharacterExit += OnCharacterExitHandler;
         obstacleManager.StartSpawning();
         character.RequestJump();
-        inputManager.OnKeyPressed += OnInputHandler;
+        InputManager.OnJumpPressed += OnInputHandler;
     }
 
-    private void OnInputHandler(Key keycode)
+    private void OnCharacterExitHandler()
     {
-        if (keycode != inputKey) return;
-        
+        RuntimeData.AddScore(1);   
+    }
+
+    private void OnCharacterCollisionHandler()
+    {
+        StateMachine.SwitchState(StateType.GameplaySummary);
+    }
+
+    private void OnInputHandler()
+    {
         character.RequestJump();
     }
-    
 }
