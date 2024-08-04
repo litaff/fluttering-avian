@@ -1,11 +1,12 @@
 namespace fluttering_avian.state_machine.states;
 
 using input_manager;
+using ViewManager;
 
 public class InitializationState : BaseCoreState
 {
-    public InitializationState(RuntimeData runtimeData, InputManager inputManager) : base(runtimeData, inputManager,
-        StateType.Initialization)
+    public InitializationState(ViewManager viewManager, RuntimeData runtimeData, InputManager inputManager) : base(
+        viewManager, runtimeData, inputManager, StateType.Initialization)
     {
     }
 

@@ -3,7 +3,9 @@ namespace fluttering_avian.obstacles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Godot;
+using GodotTask;
 
 public partial class ObstacleManager : Node
 {
@@ -14,10 +16,13 @@ public partial class ObstacleManager : Node
     [Export]
     private float obstacleMoveSpeed;
     [Export]
+    private float cleaningMoveSpeedMultiplier;
+    [Export]
     private Timer spawnTimer;
-    
+
     private ObstacleSpawner spawner;
     private List<Obstacle> activeObstacles;
+    private float moveSpeed;
 
     public event Action OnCharacterEnter;
     public event Action OnCharacterExit;
@@ -39,12 +44,15 @@ public partial class ObstacleManager : Node
 
     public void StartSpawning()
     {
+        moveSpeed = obstacleMoveSpeed;
         spawnTimer.Start();
     }
 
-    public void StopSpawning()
+    public async Task StopSpawning()
     {
         spawnTimer.Stop();
+        moveSpeed = obstacleMoveSpeed * cleaningMoveSpeedMultiplier;
+        await GodotTask.WaitUntil(() => activeObstacles.Count == 0);
     }
     
     private void SpawnObstacle()
@@ -98,7 +106,7 @@ public partial class ObstacleManager : Node
     {
         foreach (var obstacle in activeObstacles.ToList())
         {
-            obstacle.Translate(Vector3.Forward * obstacleMoveSpeed * (float)delta);
+            obstacle.Translate(Vector3.Forward * moveSpeed * (float)delta);
             if (!ReachedEnd(obstacle)) continue;
             FreeObstacle(obstacle);        
         }

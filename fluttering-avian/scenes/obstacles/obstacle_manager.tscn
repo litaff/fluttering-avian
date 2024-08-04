@@ -10,6 +10,7 @@ obstacles = {
 }
 spawnOffset = 10.0
 obstacleMoveSpeed = 1.0
+cleaningMoveSpeedMultiplier = 5.0
 spawnTimer = NodePath("Timer")
 
 [node name="Timer" type="Timer" parent="."]

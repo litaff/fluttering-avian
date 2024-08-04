@@ -2,30 +2,42 @@ namespace fluttering_avian.state_machine.states;
 
 using character_controller;
 using Godot;
+using GodotTask;
 using input_manager;
+using view.gameplay_summary;
+using ViewManager;
 
 public class GameplaySummeryState : BaseCoreState
 {
     private CharacterController character;
-    
-    public GameplaySummeryState(RuntimeData runtimeData, InputManager inputManager, CharacterController characterController) : base(runtimeData, inputManager,
+    private GameplaySummaryStateView view;
+
+    public GameplaySummeryState(ViewManager viewManager, RuntimeData runtimeData, InputManager inputManager,
+        CharacterController characterController) : base(viewManager, runtimeData, inputManager,
         StateType.GameplaySummary)
     {
         character = characterController;
     }
 
-    public override void OnEnter()
+    public override async void OnEnter()
     {
-        // TODO: Embed this in UI, switch state on button press.
-        GD.Print($"Score: {RuntimeData.Score}");
-        StateMachine.SwitchState(StateType.Idle);
+        await GodotTask.WaitUntil(() => !RuntimeData.ObstacleSpawned);
+        view = await ViewManager.GetView<GameplaySummaryStateView>();
+        view.UpdateView(RuntimeData.Score);
+        view.OnRestartButtonPressed += OnRestartButtonPressedHandler;
     }
-    
+
     public override void OnExit()
     {
         RuntimeData.ResetScore();
         character.Freeze = true;
-        character.Position = Vector3.Zero;
+        PhysicsServer3D.BodySetState(character.GetRid(), PhysicsServer3D.BodyState.Transform, Vector3.Zero);
         base.OnExit();
+    }
+
+    private void OnRestartButtonPressedHandler()
+    {
+        view.OnRestartButtonPressed -= OnRestartButtonPressedHandler;
+        StateMachine.SwitchState(StateType.Gameplay);
     }
 }

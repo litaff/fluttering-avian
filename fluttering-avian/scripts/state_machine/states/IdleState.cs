@@ -1,17 +1,29 @@
 namespace fluttering_avian.state_machine.states;
 
 using input_manager;
+using view.idle;
+using ViewManager;
 
 public class IdleState : BaseCoreState
 {
-    public IdleState(RuntimeData runtimeData, InputManager inputManager) : base(runtimeData, inputManager,
-        StateType.Idle)
+    private IdleStateView view;
+    
+    public IdleState(ViewManager viewManager, RuntimeData runtimeData, InputManager inputManager) : base(viewManager,
+        runtimeData, inputManager, StateType.Idle)
     {
+
     }
 
-    public override void OnEnter()
+    public override async void OnEnter()
     {
-        // TODO: Attach this to UI button.
+        view = await ViewManager.GetView<IdleStateView>();
+        
+        view.OnStartButtonPressed += OnStartButtonPressedHandler;
+    }
+
+    private void OnStartButtonPressedHandler()
+    {
+        view.OnStartButtonPressed -= OnStartButtonPressedHandler;
         StateMachine.SwitchState(StateType.Gameplay);
     }
 }

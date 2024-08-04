@@ -5,7 +5,8 @@ using System;
 public class RuntimeData
 {
     public int Score { get; private set; }
-    
+    public bool ObstacleSpawned { get; set; }
+
     public void AddScore(int score)
     {
         if (score < 0)

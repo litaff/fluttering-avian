@@ -8,6 +8,7 @@ using Logger;
 using obstacles;
 using state_machine;
 using state_machine.states;
+using view;
 
 public partial class AppManager : Node
 {
@@ -15,6 +16,8 @@ public partial class AppManager : Node
     private ObstacleManager obstacleManager;
     [Export]
     private CharacterController characterController;
+    [Export]
+    private StateViewManager stateViewManager;
     
     private ILogger logger;
     private InputManager inputManager;
@@ -51,10 +54,10 @@ public partial class AppManager : Node
 
     private void InitializeStateMachine()
     {
-        initializationState = new InitializationState(runtimeData, inputManager);
-        idleState = new IdleState(runtimeData, inputManager);
-        gameplayState = new GameplayState(runtimeData, inputManager, characterController, obstacleManager);
-        gameplaySummeryState = new GameplaySummeryState(runtimeData, inputManager, characterController);
+        initializationState = new InitializationState(stateViewManager.ViewManager, runtimeData, inputManager);
+        idleState = new IdleState(stateViewManager.ViewManager, runtimeData, inputManager);
+        gameplayState = new GameplayState(stateViewManager.ViewManager, runtimeData, inputManager, characterController, obstacleManager);
+        gameplaySummeryState = new GameplaySummeryState(stateViewManager.ViewManager, runtimeData, inputManager, characterController);
         stateMachine = new StateMachine(logger, initializationState, idleState, gameplayState,
             gameplaySummeryState);
     }
