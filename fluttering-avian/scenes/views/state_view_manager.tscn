@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjqoqf2psdsfm"]
+
+[ext_resource type="PackedScene" uid="uid://7u6wcqddnx5f" path="res://scenes/views/idle_view.tscn" id="1_p447d"]
+[ext_resource type="Script" path="res://scripts/view/StateViewManager.cs" id="1_y5mj2"]
+[ext_resource type="PackedScene" uid="uid://dbshan716ukh3" path="res://scenes/views/gameplay_view.tscn" id="3_vxgic"]
+[ext_resource type="PackedScene" uid="uid://b5n8o4xmhuing" path="res://scenes/views/gameplay_summary_view.tscn" id="4_1k3h1"]
+
+[node name="StateViewManager" type="Control" node_paths=PackedStringArray("idleStateControl", "gameplayStateControl", "gameplaySummaryStateControl")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y5mj2")
+idleStateControl = NodePath("IdleView")
+gameplayStateControl = NodePath("GameplayView")
+gameplaySummaryStateControl = NodePath("GameplaySummaryView")
+
+[node name="IdleView" parent="." instance=ExtResource("1_p447d")]
+visible = false
+layout_mode = 1
+
+[node name="GameplayView" parent="." instance=ExtResource("3_vxgic")]
+visible = false
+layout_mode = 1
+
+[node name="GameplaySummaryView" parent="." instance=ExtResource("4_1k3h1")]
+visible = false
+layout_mode = 1

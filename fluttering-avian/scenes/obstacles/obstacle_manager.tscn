@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cedu5y2rhwf7u"]
+
+[ext_resource type="Script" path="res://scripts/obstacles/ObstacleManager.cs" id="1_f7war"]
+[ext_resource type="PackedScene" uid="uid://cko3eqihsb2yn" path="res://scenes/obstacles/regular_obstacle.tscn" id="2_2vmie"]
+
+[node name="ObstacleManager" type="Node" node_paths=PackedStringArray("spawnTimer")]
+script = ExtResource("1_f7war")
+obstacles = {
+0: ExtResource("2_2vmie")
+}
+spawnOffset = 10.0
+obstacleMoveSpeed = 1.0
+cleaningMoveSpeedMultiplier = 5.0
+spawnTimer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
