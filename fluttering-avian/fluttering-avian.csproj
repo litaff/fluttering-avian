@@ -9,6 +9,9 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <Reference Include="GodotTask">
+      <HintPath>..\lib\GodotTask.dll</HintPath>
+    </Reference>
     <Reference Include="Logger">
       <HintPath>..\lib\Logger.dll</HintPath>
     </Reference>

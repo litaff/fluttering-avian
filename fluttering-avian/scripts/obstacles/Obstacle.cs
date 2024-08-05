@@ -65,7 +65,6 @@ public partial class Obstacle : Node3D, IPoolable
     {
         if (body is not CharacterController) return;
         OnCharacterCollision?.Invoke();
-        GD.Print("Skill issue.");
     }
 
     private void OnGapZoneEnteredHandler(Node3D body)
@@ -78,6 +77,5 @@ public partial class Obstacle : Node3D, IPoolable
     {
         if (body is not CharacterController) return;
         OnCharacterExit?.Invoke();
-        GD.Print("Point.");
     }
 }
