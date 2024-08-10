@@ -24,4 +24,8 @@
         <Using Include="NUnit.Framework"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\fluttering-avian\fluttering-avian.csproj" />
+    </ItemGroup>
+
 </Project>
