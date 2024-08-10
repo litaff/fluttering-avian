@@ -23,6 +23,7 @@ public partial class ObstacleManager : Node
     private ObstacleSpawner spawner;
     private List<Obstacle> activeObstacles;
     private float moveSpeed;
+    private Random random;
 
     public event Action OnCharacterEnter;
     public event Action OnCharacterExit;
@@ -30,6 +31,7 @@ public partial class ObstacleManager : Node
 
     public override void _Ready()
     {
+        random = new Random();
         activeObstacles = new List<Obstacle>();
         spawner = new ObstacleSpawner(
             new Dictionary<ObstacleType, PackedScene>(obstacles));
@@ -64,7 +66,7 @@ public partial class ObstacleManager : Node
     private void SpawnObstacle(ObstacleType type)
     {
         var obstacle = spawner.GetObstacle(type);
-        var initialPosition = new Vector3(0, obstacle.GetRandomSpawnHeight(), spawnOffset);
+        var initialPosition = new Vector3(0, obstacle.GetRandomSpawnHeight(random), spawnOffset);
         obstacle.Position = initialPosition;
         activeObstacles.Add(obstacle);
         RegisterObstacleHandlers(obstacle);
