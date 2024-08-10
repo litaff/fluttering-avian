@@ -12,32 +12,49 @@ public partial class CharacterController : RigidBody3D
 	public float RapidInputGain { get; private set; }
 
 	private float defaultGravity;
-	private float jumpVelocity;
-	private bool jumpRequested;
-	
-	private float BoostedJumpVelocity => jumpVelocity * RapidInputGain;
+
+	public float JumpVelocity { get; private set; }
+	public float BoostedJumpVelocity => JumpVelocity * RapidInputGain;
+	public bool JumpRequested { get; private set; }
+
 	private bool ShouldBoostJump => LinearVelocity.Y > 0 && !WillHitCeiling(BoostedJumpVelocity);
 
 	public override void _Ready()
 	{
 		defaultGravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
-		jumpVelocity = Mathf.Sqrt(JumpHeight * 2 * defaultGravity);
+		JumpVelocity = Mathf.Sqrt(JumpHeight * 2 * defaultGravity);
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (!jumpRequested) return;
+		if (!JumpRequested) return;
 		
-		SetAxisVelocity(new Vector3(LinearVelocity.X, ShouldBoostJump ? BoostedJumpVelocity : jumpVelocity, LinearVelocity.Z));
+		SetAxisVelocity(new Vector3(LinearVelocity.X, ShouldBoostJump ? BoostedJumpVelocity : JumpVelocity, LinearVelocity.Z));
 		
-		jumpRequested = false;
+		JumpRequested = false;
 		
 		base._PhysicsProcess(delta);
 	}
 
+	/// <summary>
+	/// Implemented for testing purposes, can be used as an initializer if setting properties via the inspector is not possible.
+	/// </summary>
+	/// <param name="ceilingRayCast">Raycast which determines whether the character will hit the ceiling.</param>
+	/// <param name="jumpHeight">The height of the jump.</param>
+	/// <param name="rapidInputGain"><see cref="JumpVelocity"/> multiplier if rapid input is detected.</param>
+	public void Initialize(RayCast3D ceilingRayCast, float jumpHeight, float rapidInputGain)
+	{
+		CeilingRayCast = ceilingRayCast;
+		JumpHeight = jumpHeight;
+		RapidInputGain = rapidInputGain;
+	}
+	
+	/// <summary>
+	/// When called, the character will jump on the next physics process.
+	/// </summary>
 	public void RequestJump()
 	{
-		jumpRequested = true;
+		JumpRequested = true;
 	}
 	
 	/// <summary>
