@@ -28,4 +28,10 @@
       <ProjectReference Include="..\fluttering-avian\fluttering-avian.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="Pooling">
+        <HintPath>..\lib\Pooling.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>
