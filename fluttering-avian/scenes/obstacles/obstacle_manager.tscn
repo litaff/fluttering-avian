@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://cedu5y2rhwf7u"]
+[gd_scene load_steps=4 format=3 uid="uid://cedu5y2rhwf7u"]
 
 [ext_resource type="Script" path="res://scripts/obstacles/ObstacleManager.cs" id="1_f7war"]
 [ext_resource type="PackedScene" uid="uid://cko3eqihsb2yn" path="res://scenes/obstacles/regular_obstacle.tscn" id="2_2vmie"]
+[ext_resource type="PackedScene" uid="uid://34s83vayjb76" path="res://scenes/obstacles/moving_obstacle.tscn" id="3_s0ep6"]
 
 [node name="ObstacleManager" type="Node" node_paths=PackedStringArray("spawnTimer")]
 script = ExtResource("1_f7war")
 obstacles = {
-0: ExtResource("2_2vmie")
+0: ExtResource("2_2vmie"),
+1: ExtResource("3_s0ep6")
 }
 spawnOffset = 10.0
 obstacleMoveSpeed = 1.0

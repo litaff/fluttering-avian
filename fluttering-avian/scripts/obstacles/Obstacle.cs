@@ -9,9 +9,9 @@ using Pooling;
 public partial class Obstacle : Node3D, IPoolable
 {
     [Export]
-    private int maxSpawnHeight;
+    public int MaxSpawnHeight { get; private set; }
     [Export]
-    private int minSpawnHeight;
+    public int MinSpawnHeight { get; private set; }
     [Export]
     private Array<Area3D> solidZones;
     [Export]
@@ -53,7 +53,7 @@ public partial class Obstacle : Node3D, IPoolable
     public virtual int GetRandomSpawnHeight()
     {
         var random = new Random();
-        return random.Next(minSpawnHeight, maxSpawnHeight + 1);
+        return random.Next(MinSpawnHeight, MaxSpawnHeight + 1);
     }
 
     public new void Free()
