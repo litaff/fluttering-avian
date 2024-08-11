@@ -1,11 +1,13 @@
 namespace fluttering_avian.character_controller;
 
+using System.Linq;
 using Godot;
+using Godot.Collections;
 
 public partial class CharacterController : RigidBody3D
 {
 	[Export]
-	public RayCast3D CeilingRayCast { get; private set; }
+	public Array<RayCast3D> CeilingRayCast { get; private set; }
 	[Export]
 	public float JumpHeight { get; private set; }
 	[Export(PropertyHint.Range, "1, 2, or_greater")]
@@ -42,9 +44,9 @@ public partial class CharacterController : RigidBody3D
 	/// <param name="ceilingRayCast">Raycast which determines whether the character will hit the ceiling.</param>
 	/// <param name="jumpHeight">The height of the jump.</param>
 	/// <param name="rapidInputGain"><see cref="JumpVelocity"/> multiplier if rapid input is detected.</param>
-	public void Initialize(RayCast3D ceilingRayCast, float jumpHeight, float rapidInputGain)
+	public void Initialize(RayCast3D[] ceilingRayCast, float jumpHeight, float rapidInputGain)
 	{
-		CeilingRayCast = ceilingRayCast;
+		CeilingRayCast = new Array<RayCast3D>(ceilingRayCast);
 		JumpHeight = jumpHeight;
 		RapidInputGain = rapidInputGain;
 	}
@@ -67,7 +69,12 @@ public partial class CharacterController : RigidBody3D
 		
 		// TODO: This is good enough, but not perfectly accurate.
 		var maxDistanceWithVelocity = Mathf.Pow(verticalVelocity, 2) / (2 * defaultGravity);
-		CeilingRayCast.TargetPosition = new Vector3(0, maxDistanceWithVelocity, 0);
-		return CeilingRayCast.IsColliding();
+
+		foreach (var rayCast3D in CeilingRayCast)
+		{
+			rayCast3D.TargetPosition = new Vector3(0, maxDistanceWithVelocity, 0);
+		}
+		
+		return CeilingRayCast.Any(rayCast => rayCast.IsColliding());
 	}
 }
