@@ -10,7 +10,7 @@
 can_sleep = false
 freeze = true
 script = ExtResource("1_unvi6")
-CeilingRayCast = NodePath("RayCast3D")
+CeilingRayCast = [NodePath("Rays/RayCast3D1"), NodePath("Rays/RayCast3D2"), NodePath("Rays/RayCast3D3")]
 JumpHeight = 1.0
 RapidInputGain = 1.8
 
@@ -20,9 +20,28 @@ shape = SubResource("BoxShape3D_ymijr")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_upnlf")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="Rays" type="Node3D" parent="."]
+
+[node name="RayCast3D1" type="RayCast3D" parent="Rays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5)
+target_position = Vector3(0, 1, 0)
+collision_mask = 6
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RayCast3D2" type="RayCast3D" parent="Rays"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-collision_mask = 4
+target_position = Vector3(0, 1, 0)
+collision_mask = 6
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RayCast3D3" type="RayCast3D" parent="Rays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
+target_position = Vector3(0, 1, 0)
+collision_mask = 6
 hit_from_inside = true
 collide_with_areas = true
 collide_with_bodies = false

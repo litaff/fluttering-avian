@@ -20,6 +20,7 @@ gapZones = [NodePath("Gap")]
 
 [node name="Upper" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5, 0)
+collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Upper"]
 shape = SubResource("BoxShape3D_17rfx")
@@ -29,6 +30,7 @@ mesh = SubResource("BoxMesh_h7jwu")
 
 [node name="Lower" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.5, 0)
+collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Lower"]
 shape = SubResource("BoxShape3D_17rfx")
