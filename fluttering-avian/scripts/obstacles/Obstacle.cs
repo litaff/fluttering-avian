@@ -17,9 +17,9 @@ public partial class Obstacle : Node3D, IPoolable
     [Export]
     private Array<Area3D> gapZones;
 
-    public event Action OnCharacterCollision;
-    public event Action OnCharacterEnter;
-    public event Action OnCharacterExit;
+    public event Action<Obstacle> OnCharacterCollision;
+    public event Action<Obstacle> OnCharacterEnter;
+    public event Action<Obstacle> OnCharacterExit;
     public event Action<IPoolable> OnFreed;
 
     public void RegisterHandlers()
@@ -64,18 +64,18 @@ public partial class Obstacle : Node3D, IPoolable
     private void OnSolidZoneEnteredHandler(Node3D body)
     {
         if (body is not CharacterController) return;
-        OnCharacterCollision?.Invoke();
+        OnCharacterCollision?.Invoke(this);
     }
 
     private void OnGapZoneEnteredHandler(Node3D body)
     {
         if (body is not CharacterController) return;
-        OnCharacterEnter?.Invoke();
+        OnCharacterEnter?.Invoke(this);
     }
 
     private void OnGapZoneExitedHandler(Node3D body)
     {
         if (body is not CharacterController) return;
-        OnCharacterExit?.Invoke();
+        OnCharacterExit?.Invoke(this);
     }
 }

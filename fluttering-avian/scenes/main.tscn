@@ -24,4 +24,3 @@ size = 10.0
 [node name="ObstacleManager" parent="." instance=ExtResource("3_2silq")]
 
 [node name="StateViewManager" parent="." instance=ExtResource("5_erqbt")]
-anchors_preset = -1

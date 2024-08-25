@@ -24,9 +24,9 @@ public partial class ObstacleManager : Node
     private List<Obstacle> activeObstacles;
     private float moveSpeed;
 
-    public event Action OnCharacterEnter;
-    public event Action OnCharacterExit;
-    public event Action OnCharacterCollision;
+    public event Action<Obstacle> OnCharacterEnter;
+    public event Action<Obstacle> OnCharacterExit;
+    public event Action<Obstacle> OnCharacterCollision;
 
     public override void _Ready()
     {
@@ -58,7 +58,11 @@ public partial class ObstacleManager : Node
     private void SpawnObstacle()
     {
         // TODO: Implement logic to swap between different obstacles.
-        SpawnObstacle(ObstacleType.Regular);
+        // TEMP, this should prolly be weighted.
+        var random = new Random();
+        var type = random.Next(0, 3);
+        GD.Print($"Spawning {type}");
+        SpawnObstacle((ObstacleType)type);
     }
     
     private void SpawnObstacle(ObstacleType type)
@@ -69,6 +73,29 @@ public partial class ObstacleManager : Node
         activeObstacles.Add(obstacle);
         RegisterObstacleHandlers(obstacle);
         AddChild(obstacle);
+        InitializeObstacle(obstacle);
+    }
+
+    private void InitializeObstacle(Obstacle obstacle)
+    {
+        switch (obstacle)
+        {
+            case AlternatingObstacle alternatingObstacle:
+                OnCharacterEnter += alternatingObstacle.Alternate;
+                OnCharacterExit += alternatingObstacle.Alternate;
+                break;
+        }
+    }
+
+    private void DisposeObstacle(Obstacle obstacle)
+    {
+        switch (obstacle)
+        {
+            case AlternatingObstacle alternatingObstacle:
+                OnCharacterEnter -= alternatingObstacle.Alternate;
+                OnCharacterExit -= alternatingObstacle.Alternate;
+                break;
+        }
     }
 
     private void RegisterObstacleHandlers(Obstacle obstacle)
@@ -87,19 +114,19 @@ public partial class ObstacleManager : Node
         obstacle.UnregisterHandlers();
     }
 
-    private void OnCharacterEnterHandler()
+    private void OnCharacterEnterHandler(Obstacle obstacle)
     {
-        OnCharacterEnter?.Invoke();
+        OnCharacterEnter?.Invoke(obstacle);
     }
 
-    private void OnCharacterExitHandler()
+    private void OnCharacterExitHandler(Obstacle obstacle)
     {
-        OnCharacterExit?.Invoke();
+        OnCharacterExit?.Invoke(obstacle);
     }
 
-    private void OnCharacterCollisionHandler()
+    private void OnCharacterCollisionHandler(Obstacle obstacle)
     {
-        OnCharacterCollision?.Invoke();
+        OnCharacterCollision?.Invoke(obstacle);
     }
 
     private void TranslateObstacles(double delta)
@@ -119,6 +146,7 @@ public partial class ObstacleManager : Node
 
     private void FreeObstacle(Obstacle obstacle)
     {
+        DisposeObstacle(obstacle);
         RemoveChild(obstacle);
         UnregisterObstacleHandlers(obstacle);
         activeObstacles.Remove(obstacle);
