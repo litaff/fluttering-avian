@@ -50,13 +50,13 @@ public class GameplayState : BaseCoreState
         InputManager.OnJumpPressed += OnInputHandler;
     }
 
-    private void OnCharacterExitHandler()
+    private void OnCharacterExitHandler(Obstacle obstacle)
     {
         RuntimeData.AddScore(1);
         view.UpdateScore(RuntimeData.Score);
     }
 
-    private void OnCharacterCollisionHandler()
+    private void OnCharacterCollisionHandler(Obstacle obstacle)
     {
         StateMachine.SwitchState(StateType.GameplaySummary);
     }

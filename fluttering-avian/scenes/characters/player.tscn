@@ -23,7 +23,7 @@ mesh = SubResource("BoxMesh_upnlf")
 [node name="Rays" type="Node3D" parent="."]
 
 [node name="RayCast3D1" type="RayCast3D" parent="Rays"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.75)
 target_position = Vector3(0, 1, 0)
 collision_mask = 6
 hit_from_inside = true
@@ -39,7 +39,7 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="RayCast3D3" type="RayCast3D" parent="Rays"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.75)
 target_position = Vector3(0, 1, 0)
 collision_mask = 6
 hit_from_inside = true

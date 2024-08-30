@@ -4,4 +4,5 @@ public enum ObstacleType
 {
     Regular,
     Moving,
+    AlternatingRandomized,
 }
