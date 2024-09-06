@@ -1,23 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgsaqq3iov5d2"]
-
-[ext_resource type="Texture2D" uid="uid://dyirjy0j81s1m" path="res://textures/TEST.png" id="1_dotwl"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6s67j"]
-albedo_texture = ExtResource("1_dotwl")
-uv1_scale = Vector3(1, 10, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_lp44g"]
-material = SubResource("StandardMaterial3D_6s67j")
-size = Vector3(1, 10, 1)
+[gd_scene load_steps=2 format=3 uid="uid://bgsaqq3iov5d2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8dqy3"]
 size = Vector3(1, 20, 20)
 
 [node name="TestEnvironment" type="Node3D"]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-mesh = SubResource("BoxMesh_lp44g")
 
 [node name="CeilingArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0)

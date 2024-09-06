@@ -1,0 +1,53 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://d22dtp0p5ibbc"
+path="res://.godot/imported/primitive_obstacle.glb-92bfe7bc4619440905ce5ffc564a7c14.scn"
+
+[deps]
+
+source_file="res://models/primitive_obstacle.glb"
+dest_files=["res://.godot/imported/primitive_obstacle.glb-92bfe7bc4619440905ce5ffc564a7c14.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+import_script/path=""
+_subresources={
+"materials": {
+"primitive_obstacle": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/primitive_obstacle.tres"
+}
+},
+"meshes": {
+"primitive_obstacle_mesh": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://meshes/primitive_obstacle_mesh.res"
+}
+}
+}
+gltf/naming_version=1
+gltf/embedded_image_handling=1

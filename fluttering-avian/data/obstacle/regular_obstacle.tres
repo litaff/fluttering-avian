@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ObstacleData" load_steps=7 format=3 uid="uid://c0bvxfg0nfwtt"]
+
+[ext_resource type="Material" uid="uid://cm2nmhbjd4wa5" path="res://materials/primitive_obstacle.tres" id="1_jmybm"]
+[ext_resource type="Script" path="res://scripts/obstacles/ObstacleData.cs" id="1_megkj"]
+[ext_resource type="Script" path="res://scripts/obstacles/ObstacleCollisionData.cs" id="1_t45wl"]
+[ext_resource type="ArrayMesh" uid="uid://ch24d6w3rw73f" path="res://meshes/primitive_obstacle_mesh.res" id="2_55h2n"]
+
+[sub_resource type="Resource" id="Resource_2xpka"]
+script = ExtResource("1_t45wl")
+CollisionLayer = 1
+CollisionMask = 1
+
+[sub_resource type="Resource" id="Resource_e2bh4"]
+script = ExtResource("1_t45wl")
+CollisionLayer = 2
+CollisionMask = 1
+
+[resource]
+script = ExtResource("1_megkj")
+GapHeight = 3.0
+GapAmount = 3
+GapCollisionData = SubResource("Resource_2xpka")
+SolidCollisionData = SubResource("Resource_e2bh4")
+Mesh = ExtResource("2_55h2n")
+Material = ExtResource("1_jmybm")

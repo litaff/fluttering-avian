@@ -27,11 +27,11 @@ public partial class MovingObstacle : Obstacle
 
     private void CalculateOffset(double delta)
     {
-        offset = direction * moveSpeed * (float)delta;
+        /*offset = direction * moveSpeed * (float)delta;
         
         if (Position.Y + offset.Y > MinSpawnHeight && Position.Y + offset.Y < MaxSpawnHeight) return;
 
         direction = -direction;
-        offset = direction * moveSpeed * (float)delta;
+        offset = direction * moveSpeed * (float)delta;*/
     }
 }

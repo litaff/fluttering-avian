@@ -1,16 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cedu5y2rhwf7u"]
+[gd_scene load_steps=3 format=3 uid="uid://cedu5y2rhwf7u"]
 
 [ext_resource type="Script" path="res://scripts/obstacles/ObstacleManager.cs" id="1_f7war"]
-[ext_resource type="PackedScene" uid="uid://cko3eqihsb2yn" path="res://scenes/obstacles/regular_obstacle.tscn" id="2_2vmie"]
-[ext_resource type="PackedScene" uid="uid://34s83vayjb76" path="res://scenes/obstacles/moving_obstacle.tscn" id="3_s0ep6"]
-[ext_resource type="PackedScene" uid="uid://crndxmbawkvph" path="res://scenes/obstacles/randomized_alternating_obstacle.tscn" id="5_gtymc"]
+[ext_resource type="Resource" uid="uid://c0bvxfg0nfwtt" path="res://data/obstacle/regular_obstacle.tres" id="2_rdg0n"]
 
 [node name="ObstacleManager" type="Node" node_paths=PackedStringArray("spawnTimer")]
 script = ExtResource("1_f7war")
 obstacles = {
-0: ExtResource("2_2vmie"),
-1: ExtResource("3_s0ep6"),
-2: ExtResource("5_gtymc")
+0: ExtResource("2_rdg0n")
 }
 spawnOffset = 10.0
 obstacleMoveSpeed = 1.0
@@ -18,4 +14,3 @@ cleaningMoveSpeedMultiplier = 3.0
 spawnTimer = NodePath("Timer")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 4.0

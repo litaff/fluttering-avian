@@ -22,5 +22,6 @@ size = 10.0
 [node name="TestEnvironment" parent="." instance=ExtResource("2_lah2u")]
 
 [node name="ObstacleManager" parent="." instance=ExtResource("3_2silq")]
+gameHeight = 10.0
 
 [node name="StateViewManager" parent="." instance=ExtResource("5_erqbt")]

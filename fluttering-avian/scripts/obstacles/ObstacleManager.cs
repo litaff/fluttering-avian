@@ -10,9 +10,11 @@ using GodotTask;
 public partial class ObstacleManager : Node
 {
     [Export]
-    private Godot.Collections.Dictionary<ObstacleType, PackedScene> obstacles;
+    private Godot.Collections.Dictionary<ObstacleType, ObstacleData> obstacles;
     [Export]
     private float spawnOffset;
+    [Export]
+    private float gameHeight;
     [Export]
     private float obstacleMoveSpeed;
     [Export]
@@ -31,8 +33,7 @@ public partial class ObstacleManager : Node
     public override void _Ready()
     {
         activeObstacles = new List<Obstacle>();
-        spawner = new ObstacleSpawner(
-            new Dictionary<ObstacleType, PackedScene>(obstacles));
+        spawner = new ObstacleSpawner(new Dictionary<ObstacleType, ObstacleData>(obstacles), gameHeight);
         spawnTimer.Timeout += SpawnObstacle;
     }
 
@@ -62,13 +63,13 @@ public partial class ObstacleManager : Node
         var random = new Random();
         var type = random.Next(0, 3);
         GD.Print($"Spawning {type}");
-        SpawnObstacle((ObstacleType)type);
+        SpawnObstacle(ObstacleType.Regular);
     }
     
     private void SpawnObstacle(ObstacleType type)
     {
         var obstacle = spawner.GetObstacle(type);
-        var initialPosition = new Vector3(0, obstacle.GetRandomSpawnHeight(), spawnOffset);
+        var initialPosition = new Vector3(0, 0, spawnOffset);
         obstacle.Position = initialPosition;
         activeObstacles.Add(obstacle);
         RegisterObstacleHandlers(obstacle);

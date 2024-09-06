@@ -11,13 +11,9 @@ size = Vector3(1, 10, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_4n7iv"]
 size = Vector3(1, 3, 1)
 
-[node name="RegularObstacle" type="Node3D" node_paths=PackedStringArray("solidZones", "gapZones")]
+[node name="RegularObstacle" type="Node3D"]
 script = ExtResource("1_c5ggl")
 moveSpeed = 1.0
-MaxSpawnHeight = 3
-MinSpawnHeight = -3
-solidZones = [NodePath("Upper"), NodePath("Lower")]
-gapZones = [NodePath("Gap")]
 
 [node name="Upper" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5, 0)

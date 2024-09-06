@@ -6,18 +6,27 @@ using Pooling;
 
 public class ObstaclePooling : Pooling<Obstacle>
 {
-    private readonly PackedScene template;
+    private readonly ObstacleData data;
+    private readonly float gameHeight;
     
-    public ObstaclePooling(PackedScene template)
+    public ObstaclePooling(ObstacleData data, float gameHeight)
     {
-        this.template = template;
+        this.data = data;
+        this.gameHeight = gameHeight;
     }
     
     protected override Obstacle GetAvailableItem()
     {
-        if (!AvailablePoolables.Any()) return template.Instantiate<Obstacle>();
-        var obstacle = AvailablePoolables.First();
+        Obstacle obstacle;
+        if (!AvailablePoolables.Any())
+        {
+            obstacle = new Obstacle();
+            obstacle.Initialize(data, gameHeight);
+            return obstacle;
+        }
+        obstacle = AvailablePoolables.First();
         AvailablePoolables.Remove(obstacle);
+        obstacle.Initialize(data, gameHeight);
         return obstacle;
     }
 }

@@ -18,12 +18,6 @@ public partial class AlternatingObstacle : Obstacle
         Randomize();
     }
 
-    // TODO: Make this set height and make the openings spawn at random heights.
-    public override int GetRandomSpawnHeight()
-    {
-        return base.GetRandomSpawnHeight();
-    }
-
     /// <summary>
     /// Alternates the blockers on this obstacle.
     /// </summary>
